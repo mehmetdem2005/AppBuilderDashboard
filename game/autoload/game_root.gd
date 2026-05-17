@@ -15,6 +15,7 @@ var terrain: TerrainData
 
 func _ready() -> void:
 	sim_clock = SimClock.new()
+	Engine.max_fps = 60                  # cap heat/battery on the phone
 	process_mode = Node.PROCESS_MODE_ALWAYS
 
 func boot_into_game() -> void:

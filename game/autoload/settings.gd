@@ -26,6 +26,10 @@ func load_cfg() -> void:
 		if not FileAccess.file_exists(terrain_dir + "/terrain.json") \
 				and FileAccess.file_exists("/tmp/mapgen/terrain.json"):
 			terrain_dir = "/tmp/mapgen"
+		# weak phone / on-device editor -> start at the lightest tier so the
+		# editor never gets overwhelmed; user can raise it from Pause > Kalite
+		if OS.has_feature("mobile") or OS.get_name() == "Android":
+			quality_preset_id = &"ultra_low"
 		save_cfg()
 		return
 	quality_preset_id = StringName(cf.get_value("quality", "preset_id", "low"))
