@@ -5,7 +5,7 @@ extends Node3D
 ## the collision grid (different radius/res/cadence) — see CollisionChunkGrid.
 
 const CELL := 125.0
-const RES := {0: 32, 1: 16, 2: 8, 3: 4}
+const RES := {0: 32, 1: 24, 2: 16, 3: 8}
 const LOD_RING := {0: 1, 1: 3}           # ring<=1 LOD0, <=3 LOD1, else LOD2/3
 const MAX_WORKER := 2
 

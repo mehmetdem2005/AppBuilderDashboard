@@ -4,7 +4,8 @@ extends RefCounted
 ## Packed arrays / Transform lists. MUST NOT touch Node/RenderingServer/
 ## PhysicsServer (Godot threading rule) — the grid commits on the main thread.
 
-const SKIRT := 6.0
+const SKIRT_MIN := 8.0
+const SKIRT_STEP_K := 4.0                # skirt depth scales with the LOD step
 
 static func build(td: TerrainData, cx: int, cz: int, cell_size: float,
 		res: int, world_size: float, scatter: Dictionary) -> Dictionary:
@@ -13,6 +14,10 @@ static func build(td: TerrainData, cx: int, cz: int, cell_size: float,
 	var oz := -half + float(cz) * cell_size
 	var step := cell_size / float(res)
 	var n := res + 1
+	# Coarser LOD => bigger step => bigger possible height jump at a seam.
+	# A fixed skirt cannot hide that; scale it with the sampling step so the
+	# downward ring always reaches below the neighbouring tile's edge.
+	var skirt := maxf(SKIRT_MIN, step * SKIRT_STEP_K)
 
 	var verts := PackedVector3Array()
 	var norms := PackedVector3Array()
@@ -32,8 +37,8 @@ static func build(td: TerrainData, cx: int, cz: int, cell_size: float,
 			var b := a + 1
 			var c := a + n
 			var d := c + 1
-			idx.append(a); idx.append(c); idx.append(b)
-			idx.append(b); idx.append(c); idx.append(d)
+			idx.append(a); idx.append(b); idx.append(c)
+			idx.append(b); idx.append(d); idx.append(c)
 
 	# downward skirt ring (hides LOD/chunk seams without z-fighting)
 	var base := verts.size()
@@ -45,7 +50,7 @@ static func build(td: TerrainData, cx: int, cz: int, cell_size: float,
 	for r in ring:
 		var top: Vector3 = verts[r.y * n + r.x]
 		verts.append(top)
-		verts.append(Vector3(top.x, top.y - SKIRT, top.z))
+		verts.append(Vector3(top.x, top.y - skirt, top.z))
 		norms.append(Vector3.UP)
 		norms.append(Vector3.UP)
 	var rc := ring.size()
@@ -55,8 +60,8 @@ static func build(td: TerrainData, cx: int, cz: int, cell_size: float,
 		var b0 := t0 + 1
 		var t1 := base + k2 * 2
 		var b1 := t1 + 1
-		idx.append(t0); idx.append(b0); idx.append(t1)
-		idx.append(t1); idx.append(b0); idx.append(b1)
+		idx.append(t0); idx.append(t1); idx.append(b0)
+		idx.append(t1); idx.append(b1); idx.append(b0)
 
 	var arr := []
 	arr.resize(Mesh.ARRAY_MAX)
