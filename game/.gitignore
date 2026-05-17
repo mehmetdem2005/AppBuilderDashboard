@@ -1,0 +1,8 @@
+# Godot generated
+.godot/
+# Export artifacts
+build/
+*.apk
+*.aab
+# Local user data
+*.translation
