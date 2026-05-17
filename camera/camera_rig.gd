@@ -8,6 +8,9 @@ const BLEND := 0.25
 const PITCH_MIN := -1.15
 const PITCH_MAX := 1.15
 
+## -1 = Settings'ten al; 0 üçüncü / 1 birinci / 2 tepeden (Inspector'dan)
+@export_range(-1, 2) var default_mode_override: int = -1
+
 var cam: Camera3D
 var mode: int = Mode.THIRD
 var yaw := 0.0
@@ -28,7 +31,8 @@ func _ready() -> void:
 		Mode.FIRST: FirstPersonRig.new(),
 		Mode.TOP: TopDownRig.new(),
 	}
-	mode = clampi(Settings.camera_default_mode, 0, 2)
+	var dm := default_mode_override if default_mode_override >= 0 else Settings.camera_default_mode
+	mode = clampi(dm, 0, 2)
 	_state = _states[mode]
 	_state.enter()
 	Services.camera_rig = self

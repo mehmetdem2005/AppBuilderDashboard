@@ -1,4 +1,10 @@
-; Mobil açık-dünya oyun altyapısı — Godot 4.6.2, gl_compatibility
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
 
 config_version=5
 
@@ -22,15 +28,16 @@ GameRoot="*res://autoload/game_root.gd"
 
 [debug]
 
-settings/stdout/verbose_stdout=false
+gdscript/warnings/unused_signal=false
+gdscript/warnings/shadowed_global_identifier=false
 
 [display]
 
 window/size/viewport_width=1280
 window/size/viewport_height=720
-window/handheld/orientation=1
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
+window/handheld/orientation=1
 
 [input_devices]
 
@@ -38,15 +45,11 @@ pointing/emulate_touch_from_mouse=true
 
 [physics]
 
-common/physics_ticks_per_second=60
 3d/default_gravity=24.0
 
 [rendering]
 
 renderer/rendering_method="mobile"
-renderer/rendering_method.mobile="mobile"
-rendering_device/fallback_to_opengl3=true
 textures/vram_compression/import_etc2_astc=true
-environment/defaults/default_clear_color=Color(0.56, 0.79, 0.92, 1)
-anti_aliasing/quality/msaa_3d=0
 lights_and_shadows/directional_shadow/size=2048
+environment/defaults/default_clear_color=Color(0.56, 0.79, 0.92, 1)

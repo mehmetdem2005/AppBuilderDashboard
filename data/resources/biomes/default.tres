@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="BiomeProfile" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/biome_profile.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+sea_level = 11.5
+relief = 230.0
+c_sand = Color(0.36, 0.305, 0.185, 1)
+c_grass = Color(0.105, 0.155, 0.062, 1)
+c_grass2 = Color(0.15, 0.18, 0.08, 1)
+c_dry = Color(0.165, 0.158, 0.09, 1)
+c_rock = Color(0.135, 0.122, 0.108, 1)
+tree_asset = &"tree_default"
+bush_asset = &"bush_default"
+tree_density = 0.7
+bush_density = 0.5
+tree_line_frac = 0.72
+sky_top = Color(0.37, 0.59, 0.85, 1)
+sky_horizon = Color(0.77, 0.86, 0.92, 1)
+fog_color = Color(0.74, 0.82, 0.88, 1)
+fog_begin = 350.0
+fog_end = 1000.0

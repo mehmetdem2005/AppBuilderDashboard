@@ -6,6 +6,12 @@ extends Node3D
 
 const COLLISION_HZ_DIV := 3              # 60 physics ticks / 3 = 20 Hz
 
+## Inspector-tweakable: assign a BiomeProfile .tres (terrain colours,
+## scatter density, fog). Leave null to use the active region's biome.
+@export var biome_override: BiomeProfile
+## Optional terrain data dir override (defaults to Settings.terrain_dir).
+@export var terrain_dir_override: String = ""
+
 var terrain: TerrainData
 var visual: VisualChunkGrid
 var collision: CollisionChunkGrid
@@ -24,8 +30,7 @@ func _ready() -> void:
 	regions.name = "RegionManager"
 	add_child(regions)
 
-	var biome: BiomeProfile = null
-	visual.setup(terrain, biome)
+	visual.setup(terrain, biome_override)
 	collision.setup(terrain)
 	regions.setup(visual)
 	Services.world_streamer = self

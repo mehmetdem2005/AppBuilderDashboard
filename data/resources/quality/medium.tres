@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="QualityPreset" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://data/quality_preset.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+id = &"medium"
+display_name = "Orta"
+visual_radius = 6
+lod_bias = 0.85
+scatter_mul = 1.0
+render_scale = 1.0
+shadows_enabled = true
+shadow_max_distance = 160.0
+msaa = 2
+fog_end = 1100.0
+collision_radius = 2
+worker_tasks = 2
