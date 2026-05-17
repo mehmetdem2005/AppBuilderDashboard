@@ -1,0 +1,70 @@
+[gd_scene load_steps=12 format=3]
+
+[ext_resource type="Script" path="res://scenes/game.gd" id="1"]
+[ext_resource type="Script" path="res://world/world_streamer.gd" id="2"]
+[ext_resource type="Script" path="res://entities/character/animal_character.gd" id="3"]
+[ext_resource type="Script" path="res://camera/camera_rig.gd" id="4"]
+[ext_resource type="Script" path="res://input/input_router.gd" id="5"]
+[ext_resource type="Script" path="res://ui/hud.gd" id="6"]
+[ext_resource type="Script" path="res://world/editor/terrain_preview.gd" id="7"]
+[ext_resource type="Resource" path="res://data/resources/biomes/default.tres" id="8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="SkyMat"]
+sky_top_color = Color(0.37, 0.59, 0.85, 1)
+sky_horizon_color = Color(0.77, 0.86, 0.92, 1)
+ground_horizon_color = Color(0.77, 0.86, 0.92, 1)
+ground_bottom_color = Color(0.5, 0.6, 0.62, 1)
+
+[sub_resource type="Sky" id="Sky"]
+sky_material = SubResource("SkyMat")
+
+[sub_resource type="Environment" id="Env"]
+background_mode = 2
+sky = SubResource("Sky")
+ambient_light_source = 3
+ambient_light_energy = 0.5
+fog_enabled = true
+fog_mode = 1
+fog_light_color = Color(0.74, 0.82, 0.88, 1)
+fog_depth_begin = 350.0
+fog_depth_end = 1000.0
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1")
+sun_path = NodePath("Sun")
+world_env_path = NodePath("WorldEnvironment")
+
+[node name="InputRouter" type="Node" parent="."]
+script = ExtResource("5")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Env")
+
+[node name="Sun" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.766, -0.422, 0.485, 0, 0.754, 0.657, -0.643, -0.503, 0.578, 0, 0, 0)
+light_color = Color(1, 0.96, 0.88, 1)
+light_energy = 1.2
+
+[node name="WorldStreamer" type="Node3D" parent="."]
+script = ExtResource("2")
+biome_override = ExtResource("8")
+
+[node name="Player" type="Node3D" parent="."]
+script = ExtResource("3")
+asset_id = &"animal_player"
+
+[node name="CameraRig" type="Node3D" parent="."]
+script = ExtResource("4")
+default_mode_override = 0
+
+[node name="HUDLayer" type="CanvasLayer" parent="."]
+
+[node name="GameHud" type="Control" parent="HUDLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource("6")
+
+[node name="TerrainPreview" type="Node3D" parent="."]
+script = ExtResource("7")
+biome = ExtResource("8")
+preview_res = 96

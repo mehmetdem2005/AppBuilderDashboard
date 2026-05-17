@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="RegionDescriptor" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://data/region_descriptor.gd" id="1"]
+[ext_resource type="Resource" path="res://data/resources/biomes/default.tres" id="2"]
+
+[resource]
+script = ExtResource("1")
+region_id = &"default"
+display_name = "Ana Ada"
+bounds = AABB(-1000, -100, -1000, 2000, 460, 2000)
+biome = ExtResource("2")
+spawn_point = Vector3(0, 0, 0)
+asset_set = []
+story_node = &""
