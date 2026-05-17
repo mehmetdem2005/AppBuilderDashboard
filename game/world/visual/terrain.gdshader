@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode cull_back, diffuse_burley, specular_schlick_ggx;
+render_mode cull_back;
 
 // Height/slope terrain colouring. GL-compatibility safe (no derivatives-heavy
 // or compute features). Uniforms fed live from the active BiomeProfile.

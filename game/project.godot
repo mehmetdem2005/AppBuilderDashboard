@@ -43,8 +43,9 @@ common/physics_ticks_per_second=60
 
 [rendering]
 
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
+renderer/rendering_method="mobile"
+renderer/rendering_method.mobile="mobile"
+rendering_device/fallback_to_opengl3=true
 textures/vram_compression/import_etc2_astc=true
 environment/defaults/default_clear_color=Color(0.56, 0.79, 0.92, 1)
 anti_aliasing/quality/msaa_3d=0
